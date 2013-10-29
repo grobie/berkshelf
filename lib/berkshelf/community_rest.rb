@@ -93,7 +93,7 @@ module Berkshelf
     def download(name, version)
       archive   = stream(find(name, version)[:file])
       extracted = self.class.unpack(archive.path)
-      Dir.glob(File.join(extracted, "*")).first
+      Dir.glob(File.join(extracted, "*")).detect { |f| File.directory?(f) }
     ensure
       archive.unlink unless archive.nil?
     end
